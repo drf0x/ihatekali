@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="This website is owned to drf0x with great writeups and more!" name="description">
+  <meta name="google" content="notranslate" />
+  <meta content="developped by kali name="author">
+  <meta itemProp="image" content=""/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+  <link href="./maincss.css" rel="stylesheet"/>
+  <link href="./style1.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</head>
+
+<title>IHATEKALI</title> 
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Quicksand", sans-serif;
+    }
+    .cd__main {
+       background: #11111100 !important;
+       top: 50%;
+       margin-top: -50px;
+    }
+
+    body {
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #111;
+      width: 100%;
+      overflow: hidden;
+    }
+    .ring {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .ring i {
+      position: absolute;
+      inset: 0;
+      border: 2px solid #ffffff00;
+      transition: 0.5s;
+    }
+    .ring i:nth-child(1) {
+      border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+      animation: animate 6s linear infinite;
+    }
+    .ring i:nth-child(2) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate 4s linear infinite;
+    }
+    .ring i:nth-child(3) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate2 10s linear infinite;
+    }
+    .ring:hover i {
+      border: 6px solid var(--clr);
+      filter: drop-shadow(0 0 20px var(--clr));
+    }
+    @keyframes animate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes animate2 {
+      0% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+    .login {
+      position: absolute;
+      width: 175px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .login h2 {
+      font-size: 2em;
+      color: #fff;
+    }
+    .login .inputBx {
+      position: relative;
+      width: 100%;
+    }
+    .login .inputBx input {
+      position: relative;
+      width: 100%;
+      padding: 12px 20px;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #fff;
+      box-shadow: none;
+      outline: none;
+    }
+    .login .inputBx input[type="submit"] {
+      width: 100%;
+      background: #0078ff;
+      background: linear-gradient(45deg, #161616, #000000);
+      border: none;
+      cursor: pointer;
+    }
+    .login .inputBx input::placeholder {
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .login .links {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .login .links a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .shake {
+      animation: shake 0.5s;
+      border: 2px solid red;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    } 
+
+    .message {
+      color: red;
+      display: none;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid;
+      animation: typing 1s steps(20, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: red; }
+    }
+    .hide-message {
+      animation: hideMessage 1s forwards;
+    }
+    @keyframes hideMessage {
+      0% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+</style>
+<body>
+
+ <main class="cd__main">
+  <div class="ring">
+    <i style="--clr:#200303;"></i>
+    <i style="--clr:#9c0034;"></i>
+    <i style="--clr:#1e0000;"></i>
+    <div class="login">
+      <div class="inputBx">
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      <div class="inputBx">
+        <input onclick="checkPassword()" type="submit" value="Enter">
+      </div>
+      <div id="message" class="message"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+    function checkPassword() {
+        const correctPassword = '3';
+        const passwordInput = document.getElementById('password');
+        const messageDiv = document.getElementById('message');
+
+        if (passwordInput.value === correctPassword) {
+            messageDiv.style.color = 'green';
+            messageDiv.textContent = 'Well done, you can read source code.';
+            messageDiv.style.display = 'block';
+            messageDiv.classList.remove('hide-message'); // Ensure hide-message is not applied initially
+            
+            // Apply typing effect
+            messageDiv.style.animation = 'typing 1s steps(20, end), blink-caret 0.75s step-end infinite';
+            
+            // After typing animation, keep the message visible for 5 seconds, then hide it
+            setTimeout(() => {
+                messageDiv.style.animation = 'none'; // Stop the typing effect
+                messageDiv.classList.add('hide-message'); // Start hide animation
+            }, 6000); // 1s typing effect + 5s display = 6 seconds total
+        } else {
+            messageDiv.style.color = 'red';
+            messageDiv.textContent = 'Incorrect';
+            messageDiv.style.display = 'block';
+            passwordInput.classList.add('shake'); // Add shake effect on wrong password
+
+            // Clear the input field immediately
+            passwordInput.value = '';
+            
+            // Remove the shake class after animation to allow future animations
+            setTimeout(() => {
+                passwordInput.classList.remove('shake');
+            }, 500);
+        }
+    }
+</script>
+
+</body>
+</html>

